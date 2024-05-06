@@ -7,7 +7,7 @@ if(!(Test-Path -Path $dw_dir )) {
 $pdf_filename = "MieleOutletPricelist.pdf"
 
 $tmp_filepath = [System.IO.Path]::GetTempFileName()
-$dw_url = "http://application.miele.co.uk/resources/pdf/$pdf_filename"
+$dw_url = "https://application.miele.co.uk/resources/pdf/$pdf_filename"
 Invoke-WebRequest -Uri $dw_url -OutFile $tmp_filepath -DisableKeepAlive -Headers @{"Cache-Control"="no-cache"}
 
 $old_filepath = Join-Path -Path $dw_dir -ChildPath $pdf_filename
