@@ -1,7 +1,7 @@
 # miele_outlet
 Pulls down a price list .pdf file and diffs it against the previous known version (if any).
 
-This is just a throwaway script and an excuse to learn a little more PowerShell. 
+This ~~is~~ was an excuse to learn a little more PowerShell, but I ported it to bash.
 
 I scripted it for a few reasons. I wanted to buy a product but ...
 * There's no easy way to identify changes to the stock list
