@@ -13,19 +13,17 @@ curl -L "https://application.miele.co.uk/resources/pdf/$pdf_filename" \
 
 readonly old_filepath="$dw_dir/$pdf_filename"
 
-# Run beyond compare against old & new files and wait for exit
-function beyond_compare_diff() {
-    set +e
-    bcompare "$1" "$2" &
-    set -e
+# let's just do manual error-handling from here onwards
+set +e
 
+# Run beyond compare against old & new files and wait for exit
+function beyond_compare_diff() {    
+    bcompare "$1" "$2" &
     wait $!
 }
 
 if [[ -f "$old_filepath" ]]; then
-    set +e
     diff "$old_filepath" "$tmp_latest_filepath"
-    set -e
 
     if [[ $? -eq 0 ]]; then
         echo -e "\033[32mContents are identical; nothing to do.\033[0m"        
@@ -38,4 +36,7 @@ else
     beyond_compare_diff "$old_filepath" "$tmp_latest_filepath"
 fi
 
-mv -f "$tmp_latest_filepath" "$old_filepath" 
+mv -f "$tmp_latest_filepath" "$old_filepath"
+if [[ $? -ne 0 ]]; then
+    echo -e "\033[31mFailed to move file\033[0m"
+fi
